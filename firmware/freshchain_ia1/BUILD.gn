@@ -1,0 +1,33 @@
+# FreshChain IA1 node (E53_IA1 + Paho MQTT)
+# Build only one FreshChain node at a time via sample/BUILD.gn.
+
+static_library("freshchain_ia1") {
+    sources = [
+        "freshchain_ia1_example.c",
+        "ia1_control.c",
+        "E53_IA1.c",
+        "wifi_connect.c",
+    ]
+
+    cflags = [
+        "-Wno-unused-variable",
+        "-Wno-unused-but-set-variable",
+        "-Wno-unused-parameter",
+    ]
+
+    include_dirs = [
+        ".",
+        "//utils/native/lite/include",
+        "//kernel/liteos_m/components/cmsis/2.0",
+        "//base/iot_hardware/interfaces/kits/wifiiot_lite",
+        "//foundation/communication/interfaces/kits/wifi_lite/wifiservice",
+        "//vendor/hisi/hi3861/hi3861/third_party/lwip_sack/include/",
+        "//third_party/paho_mqtt/MQTTPacket/src",
+        "//third_party/paho_mqtt/MQTTClient-C/src",
+        "//third_party/paho_mqtt/MQTTClient-C/src/liteOS",
+    ]
+
+    deps = [
+        "//third_party/paho_mqtt:pahomqtt_static",
+    ]
+}

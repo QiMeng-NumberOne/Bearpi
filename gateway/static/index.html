@@ -1,0 +1,200 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>椴滆繍鏅鸿仈 路 鍙岃妭鐐圭洃绠＄湅鏉?/title>
+  <link rel="stylesheet" href="/style.css?v=9">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">FRESHCHAIN / BEARPI</p>
+      <h1>椴滆繍鏅鸿仈</h1>
+      <p class="subtitle">鍐滀骇鍝佷骇鍦扮幆澧冧笌杩愯緭杞ㄨ抗鍙岃妭鐐圭洃绠＄郴缁?/p>
+    </div>
+    <div class="system-status">
+      <span id="modeBadge" class="badge">杩炴帴涓?/span>
+      <span id="lastRefresh">--</span>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="hero-grid" id="heroGrid">
+      <article class="hero-card ia1-hero" id="ia1Hero">
+        <div class="card-title"><span class="node-dot green"></span>鑺傜偣 A 路 浜у湴鐜绠″</div>
+        <div class="ia1-metrics">
+          <div class="ia1-metric temperature">
+            <span class="metric-label">娓╁害</span>
+            <div class="ia1-value"><span id="temperature">--</span><small>掳C</small></div>
+          </div>
+          <div class="ia1-metric humidity">
+            <span class="metric-label">婀垮害</span>
+            <div class="ia1-value"><span id="humidity">--</span><small>%</small></div>
+          </div>
+          <div class="ia1-metric lux">
+            <span class="metric-label">鍏夌収</span>
+            <div class="ia1-value"><span id="lux">--</span><small>lx</small></div>
+          </div>
+        </div>
+        <div class="state-line"><span id="ia1State" class="status-pill">绛夊緟鏁版嵁</span><span id="ia1Time">--</span></div>
+      </article>
+      <article class="hero-card st1-hero" id="st1Hero">
+        <div class="card-title"><span class="node-dot blue"></span>鑺傜偣 B 路 杩愯緭杩借釜缁堢</div>
+        <div class="st1-status"><span id="gpsStatus">--</span></div>
+        <div class="st1-coords">
+          <div class="st1-coord">
+            <span class="metric-label">绾害</span>
+            <strong id="latitude">--</strong>
+          </div>
+          <div class="st1-coord">
+            <span class="metric-label">缁忓害</span>
+            <strong id="longitude">--</strong>
+          </div>
+        </div>
+        <div class="state-line"><span id="st1State" class="status-pill">绛夊緟鏁版嵁</span><span id="st1Time">--</span></div>
+      </article>
+    </section>
+
+    <section class="grid two-col" id="controlGrid">
+      <article class="panel" id="ia1ControlPanel">
+        <div class="panel-heading"><div><p class="eyebrow">ORIGIN ENVIRONMENT</p><h2>浜у湴鐜鎺у埗</h2></div><span id="ia1Mode" class="badge muted">--</span></div>
+        <div class="metric-row">
+          <div class="metric"><span class="metric-label">椋庢墖</span><strong id="fanState">--</strong></div>
+          <div class="metric"><span class="metric-label">琛ュ厜鐏?/span><strong id="lightState">--</strong></div>
+          <div class="metric"><span class="metric-label">鍑鸿揣鍒ゆ柇</span><strong id="shipmentState">--</strong></div>
+        </div>
+        <div class="control-group">
+          <button data-role="auto" data-command='{"node":"ia1","payload":{"action":"set_mode","mode":"auto"}}'>鑷姩妯″紡</button>
+          <button data-role="fan-on" data-command='{"node":"ia1","payload":{"action":"fan","value":1}}'>寮€椋庢墖</button>
+          <button data-role="fan-off" data-command='{"node":"ia1","payload":{"action":"fan","value":0}}'>鍏抽鎵?/button>
+          <button data-role="light-on" data-command='{"node":"ia1","payload":{"action":"light","value":1}}'>寮€琛ュ厜</button>
+          <button data-role="light-off" data-command='{"node":"ia1","payload":{"action":"light","value":0}}'>鍏宠ˉ鍏?/button>
+        </div>
+        <p id="ia1ModeHint" class="hint mode-hint"></p>
+      </article>
+
+      <article class="panel" id="st1ControlPanel">
+        <div class="panel-heading"><div><p class="eyebrow">LOGISTICS STATUS</p><h2>杩愯緭浠诲姟鎺у埗</h2></div><span id="transportState" class="badge muted">--</span></div>
+        <div class="metric-row">
+          <div class="metric"><span class="metric-label">鍖哄煙鐘舵€?/span><strong id="zoneState">--</strong></div>
+          <div class="metric"><span class="metric-label">閫熷害</span><strong><span id="speed">--</span> m/s</strong></div>
+          <div class="metric"><span class="metric-label">铚傞福鍣?/span><strong id="buzzerState">--</strong></div>
+        </div>
+        <div class="control-group">
+          <button class="primary" data-command='{"node":"st1","payload":{"action":"start_transport"}}'>寮€濮嬭繍杈?/button>
+          <button data-command='{"node":"st1","payload":{"action":"end_transport"}}'>缁撴潫杩愯緭</button>
+          <button data-command='{"node":"st1","payload":{"action":"set_geofence","radius_m":80}}'>閲嶈鐢靛瓙鍥存爮</button>
+          <button data-command='{"node":"st1","payload":{"action":"silence"}}'>娑堥煶鎶ヨ</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="mode-switch-panel">
+      <div class="mode-switch">
+        <button class="mode-button active" data-mode="single">鍗曠偣妯″紡</button>
+        <button class="mode-button" data-mode="region">鍖哄煙鍦板浘妯″紡</button>
+      </div>
+      <p id="modeHint" class="hint mode-hint">鍗曠偣妯″紡锛氬皬杞︿笉鍔紝瑙傚療鍚屼竴浣嶇疆鐨勬俯婀垮害/鍏夌収闅忔椂闂村彉鍖栵紝骞舵樉绀?AI 棰勬祴銆?/p>
+    </section>
+
+    <section id="singleView" class="panel single-panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">SINGLE POINT / TIME SERIES</p><h2>鍗曠偣鐜瓒嬪娍</h2></div>
+        <span id="singleStatus" class="badge muted">绛夊緟鏁版嵁</span>
+      </div>
+      <div class="single-toolbar">
+        <button id="refreshSingle">鍒锋柊鏁版嵁</button>
+        <span id="singleUpdated" class="hint">--</span>
+        <span class="hint">鏈€杩?30 鍒嗛挓 路 铏氱嚎涓?AI 棰勬祴</span>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-head"><span>娓╁害</span><strong id="singleTempNow">-- 掳C</strong></div>
+          <canvas id="tempChart" width="900" height="230"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head"><span>婀垮害</span><strong id="singleHumidityNow">-- %</strong></div>
+          <canvas id="humidityChart" width="900" height="230"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head"><span>鍏夌収</span><strong id="singleLuxNow">-- lx</strong></div>
+          <canvas id="luxChart" width="900" height="230"></canvas>
+        </div>
+      </div>
+      <p id="singleHint" class="hint mode-hint"></p>
+    </section>
+
+    <section id="regionView" class="grid two-col lower-grid hidden-view">
+      <article class="panel map-panel">
+        <div class="panel-heading"><div><p class="eyebrow">ROUTE MAP</p><h2>娓╁害鍦板浘</h2></div><span id="mapMetric" class="badge muted">娓╁害</span></div>
+        <div class="map-toolbar">
+          <button id="startRun" class="primary">寮€濮嬭矾绾?/button>
+          <button id="stopRun">缁撴潫璺嚎</button>
+          <span id="runState" class="status-pill">鏈紑濮?/span>
+          <span id="runPoints" class="hint">0 鐐?/span>
+        </div>
+        <p id="runHint" class="hint mode-hint">鍏堢瓑 GPS 瀹氫綅锛屽啀寮€濮嬭矾绾匡紱寮€濮嬭矾绾夸細鍚屾椂寮€濮嬭繍杈撱€?/p>
+        <div class="map-wrap">
+          <canvas id="mapCanvas" width="900" height="400"></canvas>
+          <div id="mapEmpty" class="empty-overlay">瀹屾垚涓€鍦堝悗鐢熸垚娓╁害鍦板浘</div>
+        </div>
+        <div id="mapStats" class="map-stats"></div>
+      </article>
+      <article class="panel event-panel">
+        <div class="panel-heading"><div><p class="eyebrow">EVENT LOG</p><h2>鎶ヨ涓庝簨浠?/h2></div><button id="clearVisualEvents" class="small-button">娓呯┖鏄剧ず</button></div>
+        <div id="events" class="events"></div>
+      </article>
+    </section>
+
+    <section class="grid two-col ai-grid">
+      <article class="panel ai-forecast-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">AI FORECAST</p><h2>AI 娓╂箍搴﹂娴?/h2></div>
+          <span id="aiModel" class="badge muted">绛夊緟鍒嗘瀽</span>
+        </div>
+        <p id="aiSummary" class="ai-summary">瀹屾垚璺嚎鎴栫瓑寰?IA1 瀹炴椂鏁版嵁鍚庡紑濮嬪垎鏋愩€?/p>
+        <div class="forecast-grid">
+          <div class="forecast-card temp">
+            <div class="forecast-label">娓╁害 路 鏈潵 <span class="horizon">10</span> 鍒嗛挓</div>
+            <div class="forecast-main"><strong id="aiTempPredicted">--</strong><small>掳C</small></div>
+            <div class="forecast-meta">褰撳墠 <span id="aiTempCurrent">--</span> 掳C</div>
+            <div class="forecast-meta">鍖洪棿 <span id="aiTempRange">--</span></div>
+            <div class="confidence"><span id="aiTempConfidence">缃俊搴?--</span><i style="width:0%"></i></div>
+          </div>
+          <div class="forecast-card humidity">
+            <div class="forecast-label">婀垮害 路 鏈潵 <span class="horizon">10</span> 鍒嗛挓</div>
+            <div class="forecast-main"><strong id="aiHumidityPredicted">--</strong><small>%</small></div>
+            <div class="forecast-meta">褰撳墠 <span id="aiHumidityCurrent">--</span> %</div>
+            <div class="forecast-meta">鍖洪棿 <span id="aiHumidityRange">--</span></div>
+            <div class="confidence"><span id="aiHumidityConfidence">缃俊搴?--</span><i style="width:0%"></i></div>
+          </div>
+        </div>
+        <p id="aiMessage" class="hint mode-hint"></p>
+        <div class="ai-toolbar">
+          <button id="refreshAI">閲嶆柊鍒嗘瀽</button>
+          <span id="aiUpdated" class="hint">--</span>
+        </div>
+      </article>
+      <article class="panel ai-alert-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">AI ALERTS</p><h2>鍒嗙骇棰勮涓庡缓璁?/h2></div>
+          <span id="aiAlertCount" class="badge muted">0 鏉?/span>
+        </div>
+        <div id="aiAlerts" class="alert-list">
+          <div class="empty-overlay" style="position:static;padding-top:80px">鏆傛棤棰勮锛岀幆澧冩甯?/div>
+        </div>
+      </article>
+    </section>
+
+    <section class="footer-note">
+      <span>鏁版嵁鏈湴淇濆瓨鑷?SQLite</span>
+      <span>鑺傜偣閲囨牱鐩爣锛? 绉?/span>
+      <span>AI 棰勬祴浠呭湪鐢佃剳绔繍琛?/span>
+    </section>
+  </main>
+  <script src="/app.js?v=11"></script>
+</body>
+</html>
+
+

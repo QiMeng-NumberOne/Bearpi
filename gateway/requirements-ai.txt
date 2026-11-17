@@ -1,0 +1,7 @@
+# Optional dependencies for the planned AI / anomaly-detection / map analysis.
+# Install into the same dedicated environment:
+#   D:\CodeTools\conda_envs\freshchain\python.exe -m pip install -r requirements-ai.txt
+scikit-learn>=1.3
+pandas>=2.0
+joblib>=1.3
+statsmodels>=0.14
